@@ -189,10 +189,25 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- my own
+-- vim.keymap.set('n', '<_>', '<$>')
+vim.keymap.set('n', '<F2>', '<C-w>q')
+vim.keymap.set('n', '<F4>', ':wq!<CR>')
+vim.keymap.set('n', '<F5>', ':w!')
+vim.keymap.set('n', '<F6>', '<cmd>:qa<CR>')
+vim.keymap.set('n', '<F7>', ':w!<CR>')
+vim.keymap.set('n', '<F12>', '<cmd>:ClangdSwitchSourceHeader<CR>')
+vim.keymap.set('n', '<C-k>', '<C-u>')
+vim.keymap.set('n', '<C-j>', '<C-d>')
+
+-- Change C-u to C-k and C-d to C-j
+-- nnoremap <C-k> <C-u>
+-- nnoremap <C-j> <C-d>
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -692,6 +707,12 @@ require('lazy').setup({
         },
       }
 
+      local qml_lsp = require 'lspconfig'
+
+      qml_lsp.qmlls.setup {
+        cmd = { '/home/sami/Qt/6.8.3/gcc_64/bin/qmlls' },
+        filetypes = { 'qml' },
+      }
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -748,7 +769,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, qml = true }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -839,7 +860,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<C-s>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -977,14 +998,14 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
       -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-  }
+    },
   },
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
