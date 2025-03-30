@@ -195,7 +195,7 @@ vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower 
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- my own
--- vim.keymap.set('n', '<_>', '<$>')
+vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
 vim.keymap.set('n', '<F4>', ':wq!<CR>')
 vim.keymap.set('n', '<F5>', ':w!')
