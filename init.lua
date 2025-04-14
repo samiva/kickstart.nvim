@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -154,7 +154,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 50
 
 local set = vim.opt
 set.tabstop = 4
@@ -195,15 +195,20 @@ vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower 
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- my own
+vim.keymap.set('n', 'M', ':bp<CR>')
+vim.keymap.set('n', 'm', ':bn<CR>')
 vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
 vim.keymap.set('n', '<F4>', ':wq!<CR>')
-vim.keymap.set('n', '<F5>', ':w!')
 vim.keymap.set('n', '<F6>', '<cmd>:qa<CR>')
 vim.keymap.set('n', '<F7>', ':w!<CR>')
 vim.keymap.set('n', '<F12>', '<cmd>:ClangdSwitchSourceHeader<CR>')
 vim.keymap.set('n', '<C-k>', '<C-u>')
 vim.keymap.set('n', '<C-j>', '<C-d>')
+vim.keymap.set('n', '<C-1>', '<C-6>')
+vim.keymap.set('n', '<leader>ls', ':ls<CR>', { desc = 'Show modified buffers' })
+vim.keymap.set('n', '<leader>wa', ':wall<CR>', { desc = 'Write all opened buffers' })
+vim.keymap.set('n', '<leader>wb', ':w!<CR>', { desc = 'Write current buffer' })
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
