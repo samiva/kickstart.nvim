@@ -177,7 +177,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -195,8 +195,8 @@ vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower 
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- my own
-vim.keymap.set('n', 'M', ':bp<CR>')
-vim.keymap.set('n', 'm', ':bn<CR>')
+-- vim.keymap.set('n', 'M', ':bp<CR>')
+-- vim.keymap.set('n', 'm', ':bn<CR>')
 vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
 vim.keymap.set('n', '<F4>', ':wq!<CR>')
@@ -209,10 +209,19 @@ vim.keymap.set('n', '<C-1>', '<C-6>')
 vim.keymap.set('n', '<leader>ls', ':ls<CR>', { desc = 'Show modified buffers' })
 vim.keymap.set('n', '<leader>wa', ':wall<CR>', { desc = 'Write all opened buffers' })
 vim.keymap.set('n', '<leader>wb', ':w!<CR>', { desc = 'Write current buffer' })
+vim.keymap.set('n', '<leader>gsb', ':Gitsigns blame<CR>', { desc = 'Show gitsigns blame' })
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
 -- nnoremap <C-j> <C-d>
+--Temporar for Qt-CRA
+vim.api.nvim_set_keymap('n', '<leader>k', [[:lua CommentLineStart() <CR>]], { noremap = true, silent = true })
+
+function CommentLineStart()
+  local row = vim.api.nvim_win_get_cursor(0)[1] - 1
+  local line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1]
+  vim.api.nvim_buf_set_lines(0, row, row + 1, false, { '// ' .. line })
+end
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -715,7 +724,7 @@ require('lazy').setup({
       local qml_lsp = require 'lspconfig'
 
       qml_lsp.qmlls.setup {
-        cmd = { '/home/sami/Qt/6.8.3/gcc_64/bin/qmlls' },
+        cmd = { '/home/sami/Qt/6.10.0/gcc_64/bin/qmlls' },
         filetypes = { 'qml' },
       }
       -- Ensure the servers and tools above are installed
