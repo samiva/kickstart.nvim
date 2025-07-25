@@ -104,9 +104,6 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
-
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
@@ -195,8 +192,10 @@ vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower 
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- my own
--- vim.keymap.set('n', 'M', ':bp<CR>')
--- vim.keymap.set('n', 'm', ':bn<CR>')
+vim.keymap.set('n', '<C-m>', ':bn<CR>')
+vim.keymap.set('n', 'M', ':bp<CR>')
+vim.keymap.set('n', '<left>', ']c')
+vim.keymap.set('n', '<right>', '[c')
 vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
 vim.keymap.set('n', '<F4>', ':wq!<CR>')
@@ -210,6 +209,8 @@ vim.keymap.set('n', '<leader>ls', ':ls<CR>', { desc = 'Show modified buffers' })
 vim.keymap.set('n', '<leader>wa', ':wall<CR>', { desc = 'Write all opened buffers' })
 vim.keymap.set('n', '<leader>wb', ':w!<CR>', { desc = 'Write current buffer' })
 vim.keymap.set('n', '<leader>gsb', ':Gitsigns blame<CR>', { desc = 'Show gitsigns blame' })
+vim.keymap.set('n', 'q=', ':horizontal wincmd =<CR>', { desc = 'Windows horiontally equal' })
+vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically equal' })
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
