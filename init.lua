@@ -503,7 +503,12 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'williamboman/mason.nvim', opts = {} },
+      {
+        'williamboman/mason.nvim',
+        opts = {
+          PATH = 'prepend', -- "skip" seems to cause the spawning error
+        },
+      },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -722,12 +727,51 @@ require('lazy').setup({
         },
       }
 
+      -- uncomment qmlls
       local qml_lsp = require 'lspconfig'
 
       qml_lsp.qmlls.setup {
-        cmd = { '/home/sami/Qt/6.10.0/gcc_64/bin/qmlls' },
+        cmd = { [[C:\Qt\6.10.0\msvc2022_64\bin>qmlls.exe]] },
         filetypes = { 'qml' },
       }
+
+      -- My try to add java
+      local java_lspconfig = require 'lspconfig'
+      local java_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      java_lspconfig.jdtls.setup {
+        root_dir = java_lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git', '.project', '.classpath'),
+        capabilities = java_capabilities,
+        cmd = { 'C:\\Users\\Omistaja\\Downloads\\jdt-language-server-latest\\bin\\jdtls.bat' },
+        -- Optional: Autostart the server (usually starts automatically)
+        -- autostart = true,
+        -- Optional: Attach handlers for specific LSP events
+        -- on_attach = function(client, bufnr)
+        --   -- Define key mappings here
+        -- end,
+        settings = {
+          java = {
+            maven = {
+              updateSnapshots = true,
+            },
+            configuration = {
+              updateBuildConfiguration = 'interactive',
+            },
+            sources = {
+              organizeImports = {
+                onSave = 'true',
+              },
+            },
+            format = {
+              settings = {
+                url = nil,
+                profile = 'Eclipse [built-in]', -- Or your preferred formatting profile
+              },
+            },
+          },
+        },
+      }
+
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -784,7 +828,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, qml = true }
+        local disable_filetypes = { c = true, cpp = true, qml = true, java = true }
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -993,7 +1037,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'qmljs' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {

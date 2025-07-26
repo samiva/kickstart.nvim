@@ -2,4 +2,37 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+-- local lspconfig = require('lspconfig')
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--
+-- lspconfig.jdtls.setup {
+--   root_dir = lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git'),
+--   capabilities = capabilities,
+-- Optional: Autostart the server (usually starts automatically)
+-- autostart = true,
+-- Optional: Attach handlers for specific LSP events
+-- on_attach = function(client, bufnr)
+--   -- Define key mappings here
+-- end,
+--   settings = {
+--     java = {
+--       maven = {
+--         updateSnapshots = true
+--       },
+--       configuration = {
+--         updateBuildConfiguration = "interactive"
+--       },
+--       sources = {
+--         organizeImports = {
+--           onSave = "true"
+--         }
+--       },
+--       format = {
+--         settings = {
+--           url = nil,
+--           profile = "Eclipse [built-in]" -- Or your preferred formatting profile
+--         }
+--       }
+--     }
+--   }
+-- }
