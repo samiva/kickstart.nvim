@@ -191,19 +191,18 @@ vim.keymap.set('n', '<C-right>', '<C-w><C-l>', { desc = 'Move focus to the right
 vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- my own
+-- my own key mappings
 vim.keymap.set('n', '<C-m>', ':bn<CR>')
 vim.keymap.set('n', 'M', ':bp<CR>')
 vim.keymap.set('n', '<left>', ']c')
 vim.keymap.set('n', '<right>', '[c')
-vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
 vim.keymap.set('n', '<F4>', ':wq!<CR>')
 vim.keymap.set('n', '<F6>', '<cmd>:qa<CR>')
 vim.keymap.set('n', '<F7>', ':w!<CR>')
 vim.keymap.set('n', '<F12>', '<cmd>:ClangdSwitchSourceHeader<CR>')
-vim.keymap.set('n', '<C-k>', '<C-u>')
-vim.keymap.set('n', '<C-j>', '<C-d>')
+vim.keymap.set({ 'n', 'x', 's' }, '<C-k>', '<C-u>')
+vim.keymap.set({ 'n', 'x', 's' }, '<C-j>', '<C-d>')
 vim.keymap.set('n', '<C-1>', '<C-6>')
 vim.keymap.set('n', '<leader>ls', ':ls<CR>', { desc = 'Show modified buffers' })
 vim.keymap.set('n', '<leader>wa', ':wall<CR>', { desc = 'Write all opened buffers' })
@@ -265,12 +264,13 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-{
-  "folke/flash.nvim",
-  event = "VeryLazy",
-  ---@type Flash.Config
-  opts = {
-    search = {
+  -- This is to help jump to a specific word on the current line.
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {
+      search = {
         enable = false,
       },
     },
@@ -280,9 +280,9 @@ require('lazy').setup({
     { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
   },
-},
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -440,7 +440,6 @@ require('lazy').setup({
       -- This opens a window that shows you all of the keymaps for the current
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
-
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -448,28 +447,22 @@ require('lazy').setup({
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
           layout_strategy = 'horizontal',
           layout_config = {
             width = 0.9,
             height = 0.8,
-            prompt_position = 'top',
-          },
-          preview = {
-            treesitter = false,
           },
         },
         pickers = {
           lsp_document_symbols = {
             symbol_width = 50,
           },
+          lsp_workspace_symbols = {
+            symbol_width = 50,
+            fname_width = 50,
+          },
           lsp_dynamic_workspace_symbols = {
-            layout_config = {
-              preview_cutoff = 100,
-            },
-            fname_width = 60,
+            fname_width = 50,
           },
         },
         extensions = {
@@ -689,15 +682,22 @@ require('lazy').setup({
           end
         end,
       })
-      --
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'cpp', 'h' },
+        callback = function()
+          vim.opt_local.comments = { '://' }
+          vim.opt_local.commentstring = '// %s'
+        end,
+      })
+
       -- Force line numbers in the Telescope preview window
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "TelescopePreviewerLoaded",
-          callback = function(args)
-              if args.match ~= "help" then
-                vim.wo.number = true
-              end
-          end,
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'TelescopePreviewerLoaded',
+        callback = function(args)
+          if args.match ~= 'help' then
+            vim.wo.number = true
+          end
+        end,
       })
 
       -- Diagnostic Config
@@ -872,26 +872,28 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, qml = true, java = true }
-        local lsp_format_opt
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = 'never'
-        else
-          lsp_format_opt = 'fallback'
-        end
-        return {
-          timeout_ms = 500,
-          lsp_format = lsp_format_opt,
-        }
-      end,
+      format_on_save = false, --function(bufnr)
+      -- Disable "format_on_save lsp_fallback" for languages that don't
+      -- have a well standardized coding style. You can add additional
+      -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true, qml = true, java = true }
+      --   local lsp_format_opt
+      --   if disable_filetypes[vim.bo[bufnr].filetype] then
+      --     lsp_format_opt = 'never'
+      --   else
+      --     lsp_format_opt = 'fallback'
+      --   end
+      --   return {
+      --     timeout_ms = 500,
+      --     lsp_format = lsp_format_opt,
+      --   }
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        -- For C and C++, we want to use 'clang_format'.
         c = { 'clang_format' },
         cpp = { 'clang_format' },
+        -- You can also format header files.
         h = { 'clang_format' },
         hpp = { 'clang_format' },
         -- Conform can also run multiple formatters sequentially
@@ -1032,7 +1034,7 @@ require('lazy').setup({
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
         styles = {
-          comments = { italic = false }, -- Disable italics in comments
+          comments = { italic = true }, -- Disable italics in comments
         },
       }
 
