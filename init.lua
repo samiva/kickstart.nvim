@@ -202,8 +202,8 @@ vim.keymap.set('n', '<F4>', ':wq!<CR>')
 vim.keymap.set('n', '<F6>', '<cmd>:qa<CR>')
 vim.keymap.set('n', '<F7>', ':w!<CR>')
 vim.keymap.set('n', '<F12>', '<cmd>:ClangdSwitchSourceHeader<CR>')
-vim.keymap.set('n', '<C-k>', '<C-u>')
-vim.keymap.set('n', '<C-j>', '<C-d>')
+vim.keymap.set({ 'n', 'x', 's' }, '<C-k>', '<C-u>')
+vim.keymap.set({ 'n', 'x', 's' }, '<C-j>', '<C-d>')
 vim.keymap.set('n', '<C-1>', '<C-6>')
 vim.keymap.set('n', '<leader>ls', ':ls<CR>', { desc = 'Show modified buffers' })
 vim.keymap.set('n', '<leader>wa', ':wall<CR>', { desc = 'Write all opened buffers' })
@@ -265,12 +265,12 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-{
-  "folke/flash.nvim",
-  event = "VeryLazy",
-  ---@type Flash.Config
-  opts = {
-    search = {
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
+    opts = {
+      search = {
         enable = false,
       },
     },
@@ -282,7 +282,7 @@ require('lazy').setup({
     { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
   },
-},
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -691,13 +691,13 @@ require('lazy').setup({
       })
       --
       -- Force line numbers in the Telescope preview window
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "TelescopePreviewerLoaded",
-          callback = function(args)
-              if args.match ~= "help" then
-                vim.wo.number = true
-              end
-          end,
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'TelescopePreviewerLoaded',
+        callback = function(args)
+          if args.match ~= 'help' then
+            vim.wo.number = true
+          end
+        end,
       })
 
       -- Diagnostic Config
@@ -858,7 +858,7 @@ require('lazy').setup({
 
   { -- Autoformat
     'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
+    -- event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -872,22 +872,22 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, qml = true, java = true }
-        local lsp_format_opt
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          lsp_format_opt = 'never'
-        else
-          lsp_format_opt = 'fallback'
-        end
-        return {
-          timeout_ms = 500,
-          lsp_format = lsp_format_opt,
-        }
-      end,
+      -- format_on_save = function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true, qml = true, java = true }
+      --   local lsp_format_opt
+      --   if disable_filetypes[vim.bo[bufnr].filetype] then
+      --     lsp_format_opt = 'never'
+      --   else
+      --     lsp_format_opt = 'fallback'
+      --   end
+      --   return {
+      --     timeout_ms = 500,
+      --     lsp_format = lsp_format_opt,
+      --   }
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         c = { 'clang_format' },
@@ -1032,7 +1032,7 @@ require('lazy').setup({
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
         styles = {
-          comments = { italic = false }, -- Disable italics in comments
+          comments = { italic = true }, -- Disable italics in comments
         },
       }
 
