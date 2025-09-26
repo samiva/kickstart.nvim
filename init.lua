@@ -211,6 +211,11 @@ vim.keymap.set('n', '<leader>wb', ':w!<CR>', { desc = 'Write current buffer' })
 vim.keymap.set('n', '<leader>gsb', ':Gitsigns blame<CR>', { desc = 'Show gitsigns blame' })
 vim.keymap.set('n', 'q=', ':horizontal wincmd =<CR>', { desc = 'Windows horiontally equal' })
 vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically equal' })
+vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show pwd' })
+vim.keymap.set('n', '<F9>', ':tabclose<CR>')
+
+-- For fugitve
+vim.keymap.set('n', '<leader>gg', ':G', { desc = 'Fugitive base' })
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
@@ -264,6 +269,22 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      vim.api.nvim_create_autocmd('Filetype', {
+        pattern = 'fugitive',
+        callback = function(args)
+          vim.keymap.del('n', 'ce', { buffer = args.buf })
+          vim.keymap.set('n', '<leader>ca', '<cmd>G commit --amend --no-edit<CR>', {
+            buffer = args.buf,
+            silent = true,
+            desc = 'Fugitive amend commit withou editing message',
+          })
+        end,
+      })
+    end,
+  },
 
   {
     'folke/flash.nvim',
@@ -455,7 +476,7 @@ require('lazy').setup({
           layout_config = {
             width = 0.9,
             height = 0.8,
-            prompt_position = 'top',
+            prompt_position = 'bottom',
           },
           preview = {
             treesitter = false,
@@ -779,45 +800,8 @@ require('lazy').setup({
       local qml_lsp = require 'lspconfig'
 
       qml_lsp.qmlls.setup {
-        cmd = { [[C:\Qt\6.10.0\msvc2022_64\bin>qmlls.exe]] },
+        cmd = { '/home/sami/Qt/6.10.0/gcc_64/bin/qmlls' },
         filetypes = { 'qml' },
-      }
-
-      -- My try to add java
-      local java_lspconfig = require 'lspconfig'
-      local java_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      java_lspconfig.jdtls.setup {
-        root_dir = java_lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git', '.project', '.classpath'),
-        capabilities = java_capabilities,
-        cmd = { 'C:\\Users\\Omistaja\\Downloads\\jdt-language-server-latest\\bin\\jdtls.bat' },
-        -- Optional: Autostart the server (usually starts automatically)
-        -- autostart = true,
-        -- Optional: Attach handlers for specific LSP events
-        -- on_attach = function(client, bufnr)
-        --   -- Define key mappings here
-        -- end,
-        settings = {
-          java = {
-            maven = {
-              updateSnapshots = true,
-            },
-            configuration = {
-              updateBuildConfiguration = 'interactive',
-            },
-            sources = {
-              organizeImports = {
-                onSave = 'true',
-              },
-            },
-            format = {
-              settings = {
-                url = nil,
-                profile = 'Eclipse [built-in]', -- Or your preferred formatting profile
-              },
-            },
-          },
-        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -867,6 +851,14 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = 'v',
+        desc = '[F]ormat selection',
+      },
+      {
+        '<leader>fw',
+        function()
+          require('conform').format { async = true, lsp_format = 'fallback' }
+        end,
+        mode = 'n',
         desc = '[F]ormat buffer',
       },
     },
