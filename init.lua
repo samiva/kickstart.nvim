@@ -192,8 +192,8 @@ vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower 
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- my own key mappings
-vim.keymap.set('n', '<C-m>', ':bn<CR>')
-vim.keymap.set('n', 'M', ':bp<CR>')
+vim.keymap.set('n', '<leader>m', ':bn<CR>')
+vim.keymap.set('n', '<leader>M', ':bp<CR>')
 vim.keymap.set('n', '<left>', ']c')
 vim.keymap.set('n', '<right>', '[c')
 vim.keymap.set('n', '<F2>', '<C-w>q')
@@ -210,12 +210,18 @@ vim.keymap.set('n', '<leader>wb', ':w!<CR>', { desc = 'Write current buffer' })
 vim.keymap.set('n', '<leader>gsb', ':Gitsigns blame<CR>', { desc = 'Show gitsigns blame' })
 vim.keymap.set('n', 'q=', ':horizontal wincmd =<CR>', { desc = 'Windows horiontally equal' })
 vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically equal' })
+vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show current directory' })
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
 -- nnoremap <C-j> <C-d>
 --Temporar for Qt-CRA
 vim.api.nvim_set_keymap('n', '<leader>k', [[:lua CommentLineStart() <CR>]], { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>wsb',
+function ()
+  vim.cmd 'windo set scrollbind!'
+end,
+  { desc = 'Toggle scrollbind to all windows'})
 
 function CommentLineStart()
   local row = vim.api.nvim_win_get_cursor(0)[1] - 1
@@ -263,7 +269,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
+  'tpope/vim-fugitive',
   -- This is to help jump to a specific word on the current line.
   {
     'folke/flash.nvim',
@@ -451,6 +457,7 @@ require('lazy').setup({
           layout_config = {
             width = 0.9,
             height = 0.8,
+
           },
         },
         pickers = {
@@ -867,7 +874,15 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = 'v',
-        desc = '[F]ormat buffer',
+        desc = '[F]ormat selection',
+      },
+      {
+        '<leader>fw',
+        function()
+          require('conform').format { async = true, lsp_format = 'fallback' }
+        end,
+        mode = 'n',
+        desc = 'Format [W]hole buffer',
       },
     },
     opts = {
