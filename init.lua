@@ -243,6 +243,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Force use of // with cpp comments.
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'cpp', 'h' },
+  callback = function()
+    vim.opt_local.comments = { '://' }
+    vim.opt_local.commentstring = '// %s'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -279,7 +288,7 @@ require('lazy').setup({
           vim.keymap.set('n', '<leader>ca', '<cmd>G commit --amend --no-edit<CR>', {
             buffer = args.buf,
             silent = true,
-            desc = 'Fugitive amend commit withou editing message',
+            desc = 'Fugitive amend commit without editing message',
           })
         end,
       })
