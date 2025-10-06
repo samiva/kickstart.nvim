@@ -192,8 +192,8 @@ vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus to the lower 
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- my own
-vim.keymap.set('n', '<C-m>', ':bn<CR>')
-vim.keymap.set('n', 'M', ':bp<CR>')
+vim.keymap.set('n', '<leader>m', ':bn<CR>')
+vim.keymap.set('n', '<leader>M', ':bp<CR>')
 vim.keymap.set('n', '<left>', ']c')
 vim.keymap.set('n', '<right>', '[c')
 vim.keymap.set('n', '-', '$')
@@ -213,6 +213,11 @@ vim.keymap.set('n', 'q=', ':horizontal wincmd =<CR>', { desc = 'Windows horionta
 vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically equal' })
 vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show pwd' })
 vim.keymap.set('n', '<F9>', ':tabclose<CR>')
+
+local function ScrollbindToAllWindows()
+  vim.cmd('windo set scrollbind!')
+end
+vim.keymap.set('n', '<C-w>b', ScrollbindToAllWindows, { desc = 'Toggle scrollbind for all windows' })
 
 -- For fugitve
 vim.keymap.set('n', '<leader>gg', ':G', { desc = 'Fugitive base' })
