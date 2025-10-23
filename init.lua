@@ -211,6 +211,7 @@ vim.keymap.set('n', '<leader>gsb', ':Gitsigns blame<CR>', { desc = 'Show gitsign
 vim.keymap.set('n', 'q=', ':horizontal wincmd =<CR>', { desc = 'Windows horiontally equal' })
 vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically equal' })
 vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show current directory' })
+vim.keymap.set('n', '<leader>gg', ':G', { desc = 'Fugitive base'})
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
@@ -270,6 +271,18 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
+  config = function()
+    vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'fugitive',
+    callback = function(args)
+      vim.keymap.del('n', 'ce', { buffer = args.buff })
+      vim.keymap.set('n', '<leader>can', ':G commit --amend --no-edit<CR>',{
+        desc = 'Amend to commit without editing msg.'
+        })
+      end
+    })
+
+  end,
   -- This is to help jump to a specific word on the current line.
   {
     'folke/flash.nvim',
