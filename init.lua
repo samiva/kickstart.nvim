@@ -90,6 +90,8 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.opt.mouse = ''
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -174,7 +176,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -213,6 +215,7 @@ vim.keymap.set('n', 'q=', ':horizontal wincmd =<CR>', { desc = 'Windows horionta
 vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically equal' })
 vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show pwd' })
 vim.keymap.set('n', '<F9>', ':tabclose<CR>')
+vim.keymap.set('n', '<leader>gt', ':tabnew<CR>', { desc = 'Open a new tab'})
 
 local function ScrollbindToAllWindows()
   vim.cmd('windo set scrollbind!')
@@ -221,6 +224,7 @@ vim.keymap.set('n', '<C-w>b', ScrollbindToAllWindows, { desc = 'Toggle scrollbin
 
 -- For fugitve
 vim.keymap.set('n', '<leader>gg', ':G', { desc = 'Fugitive base' })
+vim.keymap.set('n', '<leader>gl', ':Gclog', { desc = 'Fugitive clog' })
 
 -- Change C-u to C-k and C-d to C-j
 -- nnoremap <C-k> <C-u>
@@ -233,6 +237,11 @@ function CommentLineStart()
   local line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1]
   vim.api.nvim_buf_set_lines(0, row, row + 1, false, { '// ' .. line })
 end
+
+vim.keymap.set('n', '<leader>WFL',
+  ':!google-chrome -- https://www.compass-group.fi/ravintolat-ja-ruokalistat/foodco/kaupungit/oulu/garden/<CR>',
+  { desc = '[W]hat\'s [F]or [L]unch?'}
+)
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -286,16 +295,66 @@ require('lazy').setup({
   {
     'tpope/vim-fugitive',
     config = function()
-      vim.api.nvim_create_autocmd('Filetype', {
-        pattern = 'fugitive',
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'fugitive'},
         callback = function(args)
-          vim.keymap.del('n', 'ce', { buffer = args.buf })
-          vim.keymap.set('n', '<leader>ca', '<cmd>G commit --amend --no-edit<CR>', {
+          vim.keymap.set('n', '<leader>can', 'ce', {
             buffer = args.buf,
             silent = true,
+            remap = true,
             desc = 'Fugitive amend commit without editing message',
           })
+          vim.keymap.set('n', '<leader>ca', 'cae', {
+            buffer = args.buf,
+            silent = true,
+            remap = true,
+            desc = 'Fugitive amend commit with editing message',
+          })
+          vim.keymap.set('n', '<leader>dv', 'dv', {
+            buffer = args.buf,
+            silent = true,
+            remap = true,
+            desc = 'Fugitive open vertical diff split on the file under the cursor.',
+          })
+        vim.keymap.set('n', '<leader>fms', ':setlocal foldmethod=syntax<CR>', {
+          silent = true,
+          remap = true,
+          desc = 'Setlocal foldmethod to syntax.',
+        })
+        vim.keymap.set('n', '<leader>fmd', ':setlocal foldmethod=diff<CR>', {
+          silent = true,
+          remap = true,
+          desc = 'Setlocal foldmethod to diff.',
+        })
+
+        vim.keymap.set('n', '<leader>crm', ':G commit -C', { desc = 'commit and reuse message' })
+        vim.keymap.set('n', '<leader>crem', ':G commit -c', { desc = 'commit and edit reused message' })
         end,
+      })
+      -----------------------------------------------------
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'git',
+        callback = function ()
+          vim.opt_local.foldmethod = 'syntax'
+        end,
+      })
+      -- For git use
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'cpp', 'git' },
+        callback = function(args)
+          vim.keymap.set('n', '<leader>]', ']c', {
+            buffer = args.buf,
+            silent = true,
+            remap = true,
+            desc = 'Next change',
+        })
+          vim.keymap.set('n', '<leader>[', '[c', {
+            buffer = args.buf,
+            silent = true,
+            remap = true,
+            desc = 'Last change',
+        })
+        end
       })
     end,
   },
@@ -814,7 +873,7 @@ require('lazy').setup({
       local qml_lsp = require 'lspconfig'
 
       qml_lsp.qmlls.setup {
-        cmd = { '/home/sami/Qt/6.10.0/gcc_64/bin/qmlls' },
+        cmd = { '/home/sami/Qt/6.11.0/gcc_64/bin/qmlls' },
         filetypes = { 'qml' },
       }
 
@@ -1122,6 +1181,16 @@ require('lazy').setup({
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
       -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    opts = {
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function()
+            vim.opt_local.relativenumber = true
+          end,
+        },
+      },
     },
   },
 
