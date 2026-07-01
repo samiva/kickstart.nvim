@@ -190,8 +190,6 @@ local function ScrollbindToAllWindows()
 end
 vim.keymap.set('n', '<C-w>b', ScrollbindToAllWindows, { desc = 'Toggle scrollbind for all windows' })
 
-vim.keymap.set('n', '<leader>WFL', ':!google-chrome -- https://www.compass-group.fi/ravintolat-ja-ruokalistat/foodco/kaupungit/oulu/garden/<CR>', { desc = '[W]hat\'s [F]or [L]unch?'})
-
 -- Native Commenting mapped to your old Qt-CRA key
 vim.keymap.set('n', '<leader>k', 'gcc', { remap = true, desc = 'Toggle comment line (Native)' })
 
@@ -268,7 +266,33 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>fmd', ':setlocal foldmethod=diff<CR>', { silent = true, remap = true, desc = 'Setlocal foldmethod to diff' })
     vim.keymap.set('n', '<leader>crm', ':G commit -C', { desc = 'commit and reuse message' })
     vim.keymap.set('n', '<leader>crem', ':G commit -c', { desc = 'commit and edit reused message' })
+    vim.keymap.set('n', '<leader>pu', ':G push ', { desc = 'Push' })
+    vim.keymap.set('n', '<leader>pp', ':G pull ', { desc = 'Pull' })
+    vim.keymap.set('n', '<leader>prb', ':G pull --rebase', { desc = 'Pull --rebase' })
+    vim.keymap.set('n', '<leader>sc', ':G stash', { desc = 'stash changes' })
+    vim.keymap.set('n', '<leader>sp', ':G stash pop', { desc = 'stash pop' })
+    vim.keymap.set('n', '<leader>sl', ':G stash list', { desc = 'stash list' })
+
   end,
+})
+
+-- For git use
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'cpp', 'git' },
+  callback = function(args)
+    vim.keymap.set('n', '<leader>]', ']c', {
+      buffer = args.buf,
+      silent = true,
+      remap = true,
+      desc = 'Next change',
+  })
+    vim.keymap.set('n', '<leader>[', '[c', {
+      buffer = args.buf,
+      silent = true,
+      remap = true,
+      desc = 'Last change',
+  })
+  end
 })
 
 vim.api.nvim_create_autocmd('FileType', {
