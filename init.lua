@@ -169,7 +169,7 @@ vim.keymap.set('n', '<left>', ']c')
 vim.keymap.set('n', '<right>', '[c')
 vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
-vim.keymap.set('n', '<F4>', ':wq!<CR>')
+vim.keymap.set('n', '<F4>', ':q!')
 vim.keymap.set('n', '<F6>', '<cmd>:qa<CR>')
 vim.keymap.set('n', '<F7>', ':w!<CR>')
 vim.keymap.set('n', '<F12>', '<cmd>:LspClangdSwitchSourceHeader<CR>')
@@ -255,6 +255,23 @@ vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end, { desc = 
 -- [[ Fugitive setup ]]
 vim.keymap.set('n', '<leader>gg', ':G', { desc = 'Fugitive base' })
 vim.keymap.set('n', '<leader>gl', ':Gclog', { desc = 'Fugitive clog' })
+vim.keymap.set('v', '<leader>gb', ':\'<,\'>G blame<CR>', { desc = 'Fugitive blame' })
+vim.keymap.set('v', '<leader>gl', function()
+  -- 1. Grab active visual selection boundaries
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+
+  -- 2. Correct order if selection was made bottom-to-top
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  -- 3. Exit visual mode so the command runs cleanly from normal mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
+
+  -- 4. Run the Fugitive command with evaluated numbers
+  vim.cmd(string.format('G log -L %d,%d:%%', start_line, end_line))
+end, { desc = 'Fugitive line history' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive'},
