@@ -130,6 +130,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('v', '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end, { buffer = event.buf, desc = '[F]ormat selection natively' })
+
+    -- TODO: Format current line
+    -- vim.keymap.set('n', '<leader>fv', function()
+    --   vim.lsp.buf.format { async = true }
+    -- end, { buffer = event.buf, desc = '[F]ormat line' })
   end,
 })
 
@@ -161,6 +166,10 @@ vim.keymap.set('n', '<C-left>', '<C-w><C-h>', { desc = 'Move focus left' })
 vim.keymap.set('n', '<C-right>', '<C-w><C-l>', { desc = 'Move focus right' })
 vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus down' })
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus up' })
+
+-- Neotree
+vim.keymap.set('n', '<leader>nn', ':Neotree<CR>', { desc = 'Open Neotree' })
+vim.keymap.set('n', '<leader>nr', ':Neotree reveal<CR>', { desc = 'Reveal in Neotree' })
 
 -- User specific
 vim.keymap.set('n', '<leader>m', ':bn<CR>')
