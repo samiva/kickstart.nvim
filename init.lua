@@ -488,6 +488,15 @@ vim.lsp.config('qml_lsp', {
   filetypes = { 'qml' },
 })
 
+vim.lsp.config('cmake', {
+  cmd = {'cmake-language-server'},
+  filetypes = {'cmake'},
+  -- EXPERIMENT (2026-07-19): added 'CMakeLists.txt' on top of nvim-lspconfig's
+  -- default root_markers so a bare top-level project (no .git/build/ yet) still
+  -- attaches. If cmake LSP root detection misbehaves, revert this first.
+  root_markers = { 'CMakeLists.txt', 'CMakePresets.json', 'CTestConfig.cmake', '.git', 'build', 'cmake' },
+})
+
 -- 2. Enable all your language servers at once
 vim.lsp.enable({
   'clangd',
