@@ -285,25 +285,33 @@ end, { desc = 'Fugitive line history' })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive'},
   callback = function(args)
+    -- Fold method toggles
     vim.keymap.set('n', '<leader>fms', ':setlocal foldmethod=syntax<CR>', { buffer = args.buf, silent = true, remap = true, desc = 'Setlocal foldmethod to syntax' })
     vim.keymap.set('n', '<leader>fmd', ':setlocal foldmethod=diff<CR>', { buffer = args.buf, silent = true, remap = true, desc = 'Setlocal foldmethod to diff' })
-    
+
+    -- Commit (amend/reuse)
     vim.keymap.set('n', '<leader>crm', ':G commit -C', { buffer = args.buf, desc = 'commit and reuse message' })
     vim.keymap.set('n', '<leader>crem', ':G commit -c', { buffer = args.buf, desc = 'commit and edit reused message' })
     vim.keymap.set('n', '<leader>can', 'ce', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive amend commit without editing message' })
     vim.keymap.set('n', '<leader>ca', 'cae', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive amend commit with editing message' })
+
+    -- Diff view
     vim.keymap.set('n', '<leader>dv', 'dv', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive open vertical diff' })
 
+    -- Remote sync (push/pull)
     vim.keymap.set('n', '<leader>pu', ':G push origin HEAD:refs/for/', { buffer = args.buf, desc = 'Push' })
     vim.keymap.set('n', '<leader>pp', ':G pull ', { buffer = args.buf, desc = 'Pull' })
     vim.keymap.set('n', '<leader>prb', ':G pull --rebase', { buffer = args.buf, desc = 'Pull --rebase' })
 
+    -- Reset - hard
     vim.keymap.set('n', '<leader>rhh', ':G reset --hard HEAD^ <CR>', { buffer = args.buf, desc = 'Reset head^ --hard' })
     vim.keymap.set('n', '<leader>rhbh', ':G reset --hard HEAD~', { buffer = args.buf, desc = 'Reset head~ --hard' })
 
+    -- Reset - soft
     vim.keymap.set('n', '<leader>rhs', ':G reset HEAD^ --soft<CR>', { buffer = args.buf, desc = 'Reset head^ --soft' })
     vim.keymap.set('n', '<leader>rhbs', ':G reset --soft HEAD~', { buffer = args.buf, desc = 'Reset head^ --soft' })
 
+    -- Stash
     vim.keymap.set('n', '<leader>sc', ':G stash', { buffer = args.buf, desc = 'stash changes' })
     vim.keymap.set('n', '<leader>sp', ':G stash pop', { buffer = args.buf, desc = 'stash pop' })
     vim.keymap.set('n', '<leader>sl', ':G stash list', { buffer = args.buf, desc = 'stash list' })
