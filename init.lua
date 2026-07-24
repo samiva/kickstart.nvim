@@ -80,31 +80,31 @@ end
 -- =====================================================================
 
 -- Core & Utilities
-ensure_plugin('vim-sleuth', 'https://github.com/tpope/vim-sleuth.git', '1d25e8e5dc4062e38cab1a461934ee5e9d59e5a8')
-ensure_plugin('vim-fugitive', 'https://github.com/tpope/vim-fugitive.git', '96c1009fcf8ce60161cc938d149dd5a66d570756')
-ensure_plugin('flash.nvim', 'https://github.com/folke/flash.nvim.git', 'ec0bf2842189f65f60fd40bf3557cac1029cc932')
-ensure_plugin('which-key.nvim', 'https://github.com/folke/which-key.nvim.git', 'fcbf4eea17cb299c02557d576f0d568878e354a4')
+ensure_plugin('vim-sleuth', 'https://github.com/tpope/vim-sleuth.git', 'be69bff86754b1aa5adcbb527d7fcd1635a84080')
+ensure_plugin('vim-fugitive', 'https://github.com/tpope/vim-fugitive.git', '3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0')
+ensure_plugin('flash.nvim', 'https://github.com/folke/flash.nvim.git', 'fcea7ff883235d9024dc41e638f164a450c14ca2')
+ensure_plugin('which-key.nvim', 'https://github.com/folke/which-key.nvim.git', '3aab2147e74890957785941f0c1ad87d0a44c15a')
 
 -- UI & Navigation
-ensure_plugin('tokyonight.nvim', 'https://github.com/folke/tokyonight.nvim.git', '545d72cde6400835d895160ecb5853874fd5156d')
-ensure_plugin('mini.nvim', 'https://github.com/echasnovski/mini.nvim.git', 'a995fe9cd4193fb492b5df69175a351a74b3d36b')
+ensure_plugin('tokyonight.nvim', 'https://github.com/folke/tokyonight.nvim.git', 'cdc07ac78467a233fd62c493de29a17e0cf2b2b6')
+ensure_plugin('mini.nvim', 'https://github.com/echasnovski/mini.nvim.git', 'c5cdbadeb423ff724e27a42ab2d1c504d1d6fc5a')
 ensure_plugin('todo-comments.nvim', 'https://github.com/folke/todo-comments.nvim.git', '31e3c38ce9b29781e4422fc0322eb0a21f4e8668')
-ensure_plugin('nui.nvim', 'https://github.com/MunifTanjim/nui.nvim.git', 'f535005e6ad1016383f24e39559833759453564e')
-ensure_plugin('neo-tree.nvim', 'https://github.com/nvim-neo-tree/neo-tree.nvim.git', 'f3df514fff2bdd4318127c40470984137f87b62e')
+ensure_plugin('nui.nvim', 'https://github.com/MunifTanjim/nui.nvim.git', 'de740991c12411b663994b2860f1a4fd0937c130')
+ensure_plugin('neo-tree.nvim', 'https://github.com/nvim-neo-tree/neo-tree.nvim.git', 'b01ee1769144c4491ea44bc329cb84040e9793be')
 
 -- Telescope & Dependencies
-ensure_plugin('plenary.nvim', 'https://github.com/nvim-lua/plenary.nvim.git', '50012918b2fc8357b87cff2a7f7f0446e47da174')
-ensure_plugin('nvim-web-devicons', 'https://github.com/nvim-tree/nvim-web-devicons.git', '21417212f640a1dad28a1408f04468819848f5e7')
+ensure_plugin('plenary.nvim', 'https://github.com/nvim-lua/plenary.nvim.git', '74b06c6c75e4eeb3108ec01852001636d85a932b')
+ensure_plugin('nvim-web-devicons', 'https://github.com/nvim-tree/nvim-web-devicons.git', 'dad71387de386a946b123079d0e53f23028f3abd')
 ensure_plugin('telescope-fzf-native.nvim', 'https://github.com/nvim-telescope/telescope-fzf-native.nvim.git', 'b25b749b9db64d375d782094e2b9dce53ad53a40')
 ensure_plugin('telescope-ui-select.nvim', 'https://github.com/nvim-telescope/telescope-ui-select.nvim.git', '6e51d7da30bd139a6950adf2a47fda6df9fa06d2')
-ensure_plugin('telescope.nvim', 'https://github.com/nvim-telescope/telescope.nvim.git', '3333a52ff548ba0a68af6d8da1e54f9cd96e9179')
+ensure_plugin('telescope.nvim', 'https://github.com/nvim-telescope/telescope.nvim.git', '427b576c16792edad01a92b89721d923c19ad60f')
 
 -- LSP & Parsing
-ensure_plugin('nvim-treesitter', 'https://github.com/nvim-treesitter/nvim-treesitter.git', '42fc28ba918343ebfd5565147a42a26580579482')
-ensure_plugin('fidget.nvim', 'https://github.com/j-hui/fidget.nvim.git', 'b61e8af9b8b68ee0ec7da5fb7a8c203aae854f2e')
+ensure_plugin('nvim-treesitter', 'https://github.com/nvim-treesitter/nvim-treesitter.git', '4916d6592ede8c07973490d9322f187e07dfefac')
+ensure_plugin('fidget.nvim', 'https://github.com/j-hui/fidget.nvim.git', '6f793b2bcd2d35e201c09520f698bb763220908a')
 -- Lazedev will probably be removed
 -- ensure_plugin('lazydev.nvim', 'https://github.com/folke/lazydev.nvim.git', '01bc2aacd51cf9021eb19d048e70ce3dd09f7f93')
-ensure_plugin('nvim-lspconfig', 'https://github.com/neovim/nvim-lspconfig.git', '9bafffaeaae363c5211080e06e04ed5b422fd5ad')
+ensure_plugin('nvim-lspconfig', 'https://github.com/neovim/nvim-lspconfig.git', '292f44408498103c47996ff5c18fd366293840d8')
 
 -- require('lazydev').setup {
 --   library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } },
