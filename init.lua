@@ -87,7 +87,7 @@ ensure_plugin('which-key.nvim', 'https://github.com/folke/which-key.nvim.git', '
 
 -- UI & Navigation
 ensure_plugin('tokyonight.nvim', 'https://github.com/folke/tokyonight.nvim.git', 'cdc07ac78467a233fd62c493de29a17e0cf2b2b6')
-ensure_plugin('mini.nvim', 'https://github.com/echasnovski/mini.nvim.git', 'c5cdbadeb423ff724e27a42ab2d1c504d1d6fc5a')
+ensure_plugin('mini.nvim', 'https://github.com/nvim-mini/mini.nvim.git', 'c5cdbadeb423ff724e27a42ab2d1c504d1d6fc5a')
 ensure_plugin('todo-comments.nvim', 'https://github.com/folke/todo-comments.nvim.git', '31e3c38ce9b29781e4422fc0322eb0a21f4e8668')
 ensure_plugin('nui.nvim', 'https://github.com/MunifTanjim/nui.nvim.git', 'de740991c12411b663994b2860f1a4fd0937c130')
 ensure_plugin('neo-tree.nvim', 'https://github.com/nvim-neo-tree/neo-tree.nvim.git', 'b01ee1769144c4491ea44bc329cb84040e9793be')
