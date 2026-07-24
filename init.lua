@@ -351,12 +351,19 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- [[ Treesitter ]]
--- For native loading, call config directly
-require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java', 'cmake' },
-  highlight = { enable = true },
-  auto_install = false, -- SECURITY: Do not auto download parsers
-}
+-- main-branch API: no more nvim-treesitter.configs, see :h nvim-treesitter-commands
+local ts_ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java', 'cmake' }
+local ts_installed = require('nvim-treesitter').get_installed()
+local ts_missing = vim.tbl_filter(function(lang) return not vim.tbl_contains(ts_installed, lang) end, ts_ensure_installed)
+if #ts_missing > 0 then
+  -- SECURITY: only install the pinned language list above, never auto-download on the fly
+  require('nvim-treesitter').install(ts_missing)
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = ts_ensure_installed,
+  callback = function() vim.treesitter.start() end,
+})
 
 -- [[ Neo-Tree ]]
 require('neo-tree').setup {
