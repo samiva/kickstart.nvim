@@ -510,6 +510,22 @@ vim.lsp.enable({
   'qml_lsp'
 })
 
+-- Restart LSP client(s): current buffer only, or all clients with :LspRestart!
+-- Stops the client(s), then reloads the buffer so vim.lsp.enable's FileType
+-- autocmd re-attaches a fresh client.
+vim.api.nvim_create_user_command('LspRestart', function(cmd_opts)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = cmd_opts.bang and vim.lsp.get_clients() or vim.lsp.get_clients { bufnr = bufnr }
+
+  for _, client in ipairs(clients) do
+    client:stop()
+  end
+
+  vim.defer_fn(function()
+    vim.cmd.edit()
+  end, 500)
+end, { bang = true, desc = 'Restart LSP client(s): current buffer, or all with !' })
+
 -- Native LSP Keymaps mapping function
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = false }),
