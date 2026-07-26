@@ -202,6 +202,10 @@ vim.keymap.set('n', '<C-w>b', ScrollbindToAllWindows, { desc = 'Toggle scrollbin
 -- Native Commenting mapped to your old Qt-CRA key
 vim.keymap.set('n', '<leader>k', 'gcc', { remap = true, desc = 'Toggle comment line (Native)' })
 
+-- Merge conflict resolution (works in any 3-way diff view, e.g. Fugitive Gvdiffsplit!)
+vim.keymap.set({ 'n', 'v' }, '<leader>d2o', ':diffget //2<CR>', { silent = true, desc = 'Diffget //2 (ours)' })
+vim.keymap.set({ 'n', 'v' }, '<leader>d3o', ':diffget //3<CR>', { silent = true, desc = 'Diffget //3 (theirs)' })
+
 -- Autocmds
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking',
