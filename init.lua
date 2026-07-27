@@ -193,6 +193,7 @@ vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically
 vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show pwd' })
 vim.keymap.set('n', '<F9>', ':tabclose<CR>')
 vim.keymap.set('n', '<leader>gt', ':tabnew<CR>', { desc = 'Open a new tab'})
+vim.keymap.set('n', '<leader>!', ':!<C-r><C-o>+', { desc = 'Insert :! + clipboard content' })
 
 local function ScrollbindToAllWindows()
   vim.cmd('windo set scrollbind!')
