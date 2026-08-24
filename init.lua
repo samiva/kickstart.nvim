@@ -308,6 +308,14 @@ vim.api.nvim_create_autocmd('FileType', {
 
     -- Diff view
     vim.keymap.set('n', '<leader>dv', 'dv', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive open vertical diff' })
+    vim.keymap.set('n', '<leader>dt', function()
+      -- :Gvdiffsplit alone doesn't target the file under the cursor when run
+      -- directly in the status buffer, so duplicate the status window into a
+      -- new tab first and let fugitive's own `dv` do its normal, section-aware
+      -- (staged vs unstaged) diff there.
+      vim.cmd('tab split')
+      vim.cmd('normal dv')
+    end, { buffer = args.buf, silent = true, desc = 'Fugitive open vertical diff in new tab' })
 
     -- Remote sync (push/pull)
     vim.keymap.set('n', '<leader>pu', ':G push origin HEAD:refs/for/', { buffer = args.buf, desc = 'Push' })
