@@ -334,6 +334,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>sc', ':G stash', { buffer = args.buf, desc = 'stash changes' })
     vim.keymap.set('n', '<leader>sp', ':G stash pop', { buffer = args.buf, desc = 'stash pop' })
     vim.keymap.set('n', '<leader>sl', ':G stash list', { buffer = args.buf, desc = 'stash list' })
+
+    -- Branch
+    vim.keymap.set('n', '<leader>ch', ':G checkout', { buffer = args.buf, desc = 'checkout' })
+    vim.keymap.set('n', '<leader>rb', ':G rebase -i', { buffer = args.buf, desc = 'Interactive rebase' })
+    vim.keymap.set('n', '<leader>rbc', ':G rebase --continue', { buffer = args.buf, desc = 'Rebase continue' })
   end,
 })
 
