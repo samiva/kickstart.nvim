@@ -339,6 +339,12 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>ch', ':G checkout', { buffer = args.buf, desc = 'checkout' })
     vim.keymap.set('n', '<leader>rb', ':G rebase -i', { buffer = args.buf, desc = 'Interactive rebase' })
     vim.keymap.set('n', '<leader>rbc', ':G rebase --continue', { buffer = args.buf, desc = 'Rebase continue' })
+
+    -- Cherry-pick
+    vim.keymap.set('n', '<leader>cp', ':G cherry-pick ', { buffer = args.buf, desc = 'Cherry-pick' })
+    vim.keymap.set('n', '<leader>cpc', ':G cherry-pick --continue', { buffer = args.buf, desc = 'Cherry-pick continue' })
+    vim.keymap.set('n', '<leader>cpa', ':G cherry-pick --abort', { buffer = args.buf, desc = 'Cherry-pick abort' })
+
   end,
 })
 
