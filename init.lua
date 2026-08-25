@@ -380,6 +380,28 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+-- For Claude code
+vim.keymap.set('v', '<leader>cl', function()
+  -- The callback fires while still in visual mode, so '< / '> hold the
+  -- *previous* selection. Read the live selection endpoints instead.
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
+
+  local file = vim.fn.expand('%:.')
+
+  local ref = start_line == end_line
+    and string.format('@%s:%d', file, start_line)
+    or string.format('@%s:%d-%d', file, start_line, end_line)
+
+  vim.fn.setreg('+', ref)
+  vim.notify('Copied ' .. ref)
+end, { desc = 'Copy @file:line-range to clipboard' })
+
 -- [[ Treesitter ]]
 -- main-branch API: no more nvim-treesitter.configs, see :h nvim-treesitter-commands
 local ts_ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java', 'cmake' }
