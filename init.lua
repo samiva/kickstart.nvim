@@ -80,31 +80,31 @@ end
 -- =====================================================================
 
 -- Core & Utilities
-ensure_plugin('vim-sleuth', 'https://github.com/tpope/vim-sleuth.git', '1d25e8e5dc4062e38cab1a461934ee5e9d59e5a8')
-ensure_plugin('vim-fugitive', 'https://github.com/tpope/vim-fugitive.git', '96c1009fcf8ce60161cc938d149dd5a66d570756')
-ensure_plugin('flash.nvim', 'https://github.com/folke/flash.nvim.git', 'ec0bf2842189f65f60fd40bf3557cac1029cc932')
-ensure_plugin('which-key.nvim', 'https://github.com/folke/which-key.nvim.git', 'fcbf4eea17cb299c02557d576f0d568878e354a4')
+ensure_plugin('vim-sleuth', 'https://github.com/tpope/vim-sleuth.git', 'be69bff86754b1aa5adcbb527d7fcd1635a84080')
+ensure_plugin('vim-fugitive', 'https://github.com/tpope/vim-fugitive.git', '3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0')
+ensure_plugin('flash.nvim', 'https://github.com/folke/flash.nvim.git', 'fcea7ff883235d9024dc41e638f164a450c14ca2')
+ensure_plugin('which-key.nvim', 'https://github.com/folke/which-key.nvim.git', '3aab2147e74890957785941f0c1ad87d0a44c15a')
 
 -- UI & Navigation
-ensure_plugin('tokyonight.nvim', 'https://github.com/folke/tokyonight.nvim.git', '545d72cde6400835d895160ecb5853874fd5156d')
-ensure_plugin('mini.nvim', 'https://github.com/echasnovski/mini.nvim.git', 'a995fe9cd4193fb492b5df69175a351a74b3d36b')
+ensure_plugin('tokyonight.nvim', 'https://github.com/folke/tokyonight.nvim.git', 'cdc07ac78467a233fd62c493de29a17e0cf2b2b6')
+ensure_plugin('mini.nvim', 'https://github.com/nvim-mini/mini.nvim.git', 'c5cdbadeb423ff724e27a42ab2d1c504d1d6fc5a')
 ensure_plugin('todo-comments.nvim', 'https://github.com/folke/todo-comments.nvim.git', '31e3c38ce9b29781e4422fc0322eb0a21f4e8668')
-ensure_plugin('nui.nvim', 'https://github.com/MunifTanjim/nui.nvim.git', 'f535005e6ad1016383f24e39559833759453564e')
-ensure_plugin('neo-tree.nvim', 'https://github.com/nvim-neo-tree/neo-tree.nvim.git', 'f3df514fff2bdd4318127c40470984137f87b62e')
+ensure_plugin('nui.nvim', 'https://github.com/MunifTanjim/nui.nvim.git', 'de740991c12411b663994b2860f1a4fd0937c130')
+ensure_plugin('neo-tree.nvim', 'https://github.com/nvim-neo-tree/neo-tree.nvim.git', 'b01ee1769144c4491ea44bc329cb84040e9793be')
 
 -- Telescope & Dependencies
-ensure_plugin('plenary.nvim', 'https://github.com/nvim-lua/plenary.nvim.git', '50012918b2fc8357b87cff2a7f7f0446e47da174')
-ensure_plugin('nvim-web-devicons', 'https://github.com/nvim-tree/nvim-web-devicons.git', '21417212f640a1dad28a1408f04468819848f5e7')
+ensure_plugin('plenary.nvim', 'https://github.com/nvim-lua/plenary.nvim.git', '74b06c6c75e4eeb3108ec01852001636d85a932b')
+ensure_plugin('nvim-web-devicons', 'https://github.com/nvim-tree/nvim-web-devicons.git', 'dad71387de386a946b123079d0e53f23028f3abd')
 ensure_plugin('telescope-fzf-native.nvim', 'https://github.com/nvim-telescope/telescope-fzf-native.nvim.git', 'b25b749b9db64d375d782094e2b9dce53ad53a40')
 ensure_plugin('telescope-ui-select.nvim', 'https://github.com/nvim-telescope/telescope-ui-select.nvim.git', '6e51d7da30bd139a6950adf2a47fda6df9fa06d2')
-ensure_plugin('telescope.nvim', 'https://github.com/nvim-telescope/telescope.nvim.git', '3333a52ff548ba0a68af6d8da1e54f9cd96e9179')
+ensure_plugin('telescope.nvim', 'https://github.com/nvim-telescope/telescope.nvim.git', '427b576c16792edad01a92b89721d923c19ad60f')
 
 -- LSP & Parsing
-ensure_plugin('nvim-treesitter', 'https://github.com/nvim-treesitter/nvim-treesitter.git', '42fc28ba918343ebfd5565147a42a26580579482')
-ensure_plugin('fidget.nvim', 'https://github.com/j-hui/fidget.nvim.git', 'b61e8af9b8b68ee0ec7da5fb7a8c203aae854f2e')
+ensure_plugin('nvim-treesitter', 'https://github.com/nvim-treesitter/nvim-treesitter.git', '4916d6592ede8c07973490d9322f187e07dfefac')
+ensure_plugin('fidget.nvim', 'https://github.com/j-hui/fidget.nvim.git', '6f793b2bcd2d35e201c09520f698bb763220908a')
 -- Lazedev will probably be removed
 -- ensure_plugin('lazydev.nvim', 'https://github.com/folke/lazydev.nvim.git', '01bc2aacd51cf9021eb19d048e70ce3dd09f7f93')
-ensure_plugin('nvim-lspconfig', 'https://github.com/neovim/nvim-lspconfig.git', '9bafffaeaae363c5211080e06e04ed5b422fd5ad')
+ensure_plugin('nvim-lspconfig', 'https://github.com/neovim/nvim-lspconfig.git', '292f44408498103c47996ff5c18fd366293840d8')
 
 -- require('lazydev').setup {
 --   library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } },
@@ -130,6 +130,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('v', '<leader>f', function()
       vim.lsp.buf.format { async = true }
     end, { buffer = event.buf, desc = '[F]ormat selection natively' })
+
+    -- TODO: Format current line
+    -- vim.keymap.set('n', '<leader>fv', function()
+    --   vim.lsp.buf.format { async = true }
+    -- end, { buffer = event.buf, desc = '[F]ormat line' })
   end,
 })
 
@@ -150,6 +155,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Quickfix list navigation
+vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
+vim.keymap.set('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous quickfix item' })
+vim.keymap.set('n', ']Q', '<cmd>clast<CR>', { desc = 'Last quickfix item' })
+vim.keymap.set('n', '[Q', '<cmd>cfirst<CR>', { desc = 'First quickfix item' })
+
 -- Disable arrows
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -162,6 +173,10 @@ vim.keymap.set('n', '<C-right>', '<C-w><C-l>', { desc = 'Move focus right' })
 vim.keymap.set('n', '<C-down>', '<C-w><C-j>', { desc = 'Move focus down' })
 vim.keymap.set('n', '<C-up>', '<C-w><C-k>', { desc = 'Move focus up' })
 
+-- Neotree
+vim.keymap.set('n', '<leader>nn', ':Neotree<CR>', { desc = 'Open Neotree' })
+vim.keymap.set('n', '<leader>nr', ':Neotree reveal<CR>', { desc = 'Reveal in Neotree' })
+
 -- User specific
 vim.keymap.set('n', '<leader>m', ':bn<CR>')
 vim.keymap.set('n', '<leader>M', ':bp<CR>')
@@ -169,7 +184,7 @@ vim.keymap.set('n', '<left>', ']c')
 vim.keymap.set('n', '<right>', '[c')
 vim.keymap.set('n', '-', '$')
 vim.keymap.set('n', '<F2>', '<C-w>q')
-vim.keymap.set('n', '<F4>', ':wq!<CR>')
+vim.keymap.set('n', '<F4>', ':q!')
 vim.keymap.set('n', '<F6>', '<cmd>:qa<CR>')
 vim.keymap.set('n', '<F7>', ':w!<CR>')
 vim.keymap.set('n', '<F12>', '<cmd>:LspClangdSwitchSourceHeader<CR>')
@@ -184,16 +199,19 @@ vim.keymap.set('n', 'q-', ':vertical wincmd =<CR>', { desc = 'Windows vertically
 vim.keymap.set('n', '<leader>p', ':pwd<CR>', { desc = 'Show pwd' })
 vim.keymap.set('n', '<F9>', ':tabclose<CR>')
 vim.keymap.set('n', '<leader>gt', ':tabnew<CR>', { desc = 'Open a new tab'})
+vim.keymap.set('n', '<leader>!', ':!<C-r><C-o>+', { desc = 'Insert :! + clipboard content' })
 
 local function ScrollbindToAllWindows()
   vim.cmd('windo set scrollbind!')
 end
 vim.keymap.set('n', '<C-w>b', ScrollbindToAllWindows, { desc = 'Toggle scrollbind for all windows' })
 
-vim.keymap.set('n', '<leader>WFL', ':!google-chrome -- https://www.compass-group.fi/ravintolat-ja-ruokalistat/foodco/kaupungit/oulu/garden/<CR>', { desc = '[W]hat\'s [F]or [L]unch?'})
-
 -- Native Commenting mapped to your old Qt-CRA key
 vim.keymap.set('n', '<leader>k', 'gcc', { remap = true, desc = 'Toggle comment line (Native)' })
+
+-- Merge conflict resolution (works in any 3-way diff view, e.g. Fugitive Gvdiffsplit!)
+vim.keymap.set({ 'n', 'v' }, '<leader>d2o', ':diffget //2<CR>', { silent = true, desc = 'Diffget //2 (ours)' })
+vim.keymap.set({ 'n', 'v' }, '<leader>d3o', ':diffget //3<CR>', { silent = true, desc = 'Diffget //3 (theirs)' })
 
 -- Autocmds
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -257,18 +275,96 @@ vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end, { desc = 
 -- [[ Fugitive setup ]]
 vim.keymap.set('n', '<leader>gg', ':G', { desc = 'Fugitive base' })
 vim.keymap.set('n', '<leader>gl', ':Gclog', { desc = 'Fugitive clog' })
+vim.keymap.set('v', '<leader>gb', ':\'<,\'>G blame<CR>', { desc = 'Fugitive blame' })
+vim.keymap.set('v', '<leader>gl', function()
+  -- 1. Grab active visual selection boundaries
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+
+  -- 2. Correct order if selection was made bottom-to-top
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  -- 3. Exit visual mode so the command runs cleanly from normal mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
+
+  -- 4. Run the Fugitive command with evaluated numbers
+  vim.cmd(string.format('G log -L %d,%d:%%', start_line, end_line))
+end, { desc = 'Fugitive line history' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive'},
   callback = function(args)
+    -- Fold method toggles
+    vim.keymap.set('n', '<leader>fms', ':setlocal foldmethod=syntax<CR>', { buffer = args.buf, silent = true, remap = true, desc = 'Setlocal foldmethod to syntax' })
+    vim.keymap.set('n', '<leader>fmd', ':setlocal foldmethod=diff<CR>', { buffer = args.buf, silent = true, remap = true, desc = 'Setlocal foldmethod to diff' })
+
+    -- Commit (amend/reuse)
+    vim.keymap.set('n', '<leader>crm', ':G commit -C', { buffer = args.buf, desc = 'commit and reuse message' })
+    vim.keymap.set('n', '<leader>crem', ':G commit -c', { buffer = args.buf, desc = 'commit and edit reused message' })
     vim.keymap.set('n', '<leader>can', 'ce', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive amend commit without editing message' })
     vim.keymap.set('n', '<leader>ca', 'cae', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive amend commit with editing message' })
+
+    -- Diff view
     vim.keymap.set('n', '<leader>dv', 'dv', { buffer = args.buf, silent = true, remap = true, desc = 'Fugitive open vertical diff' })
-    vim.keymap.set('n', '<leader>fms', ':setlocal foldmethod=syntax<CR>', { silent = true, remap = true, desc = 'Setlocal foldmethod to syntax' })
-    vim.keymap.set('n', '<leader>fmd', ':setlocal foldmethod=diff<CR>', { silent = true, remap = true, desc = 'Setlocal foldmethod to diff' })
-    vim.keymap.set('n', '<leader>crm', ':G commit -C', { desc = 'commit and reuse message' })
-    vim.keymap.set('n', '<leader>crem', ':G commit -c', { desc = 'commit and edit reused message' })
+    vim.keymap.set('n', '<leader>dt', function()
+      -- :Gvdiffsplit alone doesn't target the file under the cursor when run
+      -- directly in the status buffer, so duplicate the status window into a
+      -- new tab first and let fugitive's own `dv` do its normal, section-aware
+      -- (staged vs unstaged) diff there.
+      vim.cmd('tab split')
+      vim.cmd('normal dv')
+    end, { buffer = args.buf, silent = true, desc = 'Fugitive open vertical diff in new tab' })
+
+    -- Remote sync (push/pull)
+    vim.keymap.set('n', '<leader>pu', ':G push origin HEAD:refs/for/', { buffer = args.buf, desc = 'Push' })
+    vim.keymap.set('n', '<leader>pp', ':G pull ', { buffer = args.buf, desc = 'Pull' })
+    vim.keymap.set('n', '<leader>prb', ':G pull --rebase', { buffer = args.buf, desc = 'Pull --rebase' })
+
+    -- Reset - hard
+    vim.keymap.set('n', '<leader>rhh', ':G reset --hard HEAD^ <CR>', { buffer = args.buf, desc = 'Reset head^ --hard' })
+    vim.keymap.set('n', '<leader>rhbh', ':G reset --hard HEAD~', { buffer = args.buf, desc = 'Reset head~ --hard' })
+
+    -- Reset - soft
+    vim.keymap.set('n', '<leader>rhs', ':G reset HEAD^ --soft<CR>', { buffer = args.buf, desc = 'Reset head^ --soft' })
+    vim.keymap.set('n', '<leader>rhbs', ':G reset --soft HEAD~', { buffer = args.buf, desc = 'Reset head^ --soft' })
+
+    -- Stash
+    vim.keymap.set('n', '<leader>sc', ':G stash', { buffer = args.buf, desc = 'stash changes' })
+    vim.keymap.set('n', '<leader>sp', ':G stash pop', { buffer = args.buf, desc = 'stash pop' })
+    vim.keymap.set('n', '<leader>sl', ':G stash list', { buffer = args.buf, desc = 'stash list' })
+
+    -- Branch
+    vim.keymap.set('n', '<leader>ch', ':G checkout', { buffer = args.buf, desc = 'checkout' })
+    vim.keymap.set('n', '<leader>rb', ':G rebase -i', { buffer = args.buf, desc = 'Interactive rebase' })
+    vim.keymap.set('n', '<leader>rbc', ':G rebase --continue', { buffer = args.buf, desc = 'Rebase continue' })
+
+    -- Cherry-pick
+    vim.keymap.set('n', '<leader>cp', ':G cherry-pick ', { buffer = args.buf, desc = 'Cherry-pick' })
+    vim.keymap.set('n', '<leader>cpc', ':G cherry-pick --continue', { buffer = args.buf, desc = 'Cherry-pick continue' })
+    vim.keymap.set('n', '<leader>cpa', ':G cherry-pick --abort', { buffer = args.buf, desc = 'Cherry-pick abort' })
+
   end,
+})
+
+-- For git use
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'cpp', 'git' },
+  callback = function(args)
+    vim.keymap.set('n', '<leader>]', ']c', {
+      buffer = args.buf,
+      silent = true,
+      remap = true,
+      desc = 'Next change',
+  })
+    vim.keymap.set('n', '<leader>[', '[c', {
+      buffer = args.buf,
+      silent = true,
+      remap = true,
+      desc = 'Last change',
+  })
+  end
 })
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -284,13 +380,42 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+-- For Claude code
+vim.keymap.set('v', '<leader>cl', function()
+  -- The callback fires while still in visual mode, so '< / '> hold the
+  -- *previous* selection. Read the live selection endpoints instead.
+  local start_line = vim.fn.line('v')
+  local end_line = vim.fn.line('.')
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'nx', false)
+
+  local file = vim.fn.expand('%:.')
+
+  local ref = start_line == end_line
+    and string.format('@%s:%d', file, start_line)
+    or string.format('@%s:%d-%d', file, start_line, end_line)
+
+  vim.fn.setreg('+', ref)
+  vim.notify('Copied ' .. ref)
+end, { desc = 'Copy @file:line-range to clipboard' })
+
 -- [[ Treesitter ]]
--- For native loading, call config directly
-require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java', 'cmake' },
-  highlight = { enable = true },
-  auto_install = false, -- SECURITY: Do not auto download parsers
-}
+-- main-branch API: no more nvim-treesitter.configs, see :h nvim-treesitter-commands
+local ts_ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java', 'cmake' }
+local ts_installed = require('nvim-treesitter').get_installed()
+local ts_missing = vim.tbl_filter(function(lang) return not vim.tbl_contains(ts_installed, lang) end, ts_ensure_installed)
+if #ts_missing > 0 then
+  -- SECURITY: only install the pinned language list above, never auto-download on the fly
+  require('nvim-treesitter').install(ts_missing)
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = ts_ensure_installed,
+  callback = function() vim.treesitter.start() end,
+})
 
 -- [[ Neo-Tree ]]
 require('neo-tree').setup {
@@ -415,6 +540,15 @@ vim.lsp.config('qml_lsp', {
   filetypes = { 'qml' },
 })
 
+vim.lsp.config('cmake', {
+  cmd = {'cmake-language-server'},
+  filetypes = {'cmake'},
+  -- EXPERIMENT (2026-07-19): added 'CMakeLists.txt' on top of nvim-lspconfig's
+  -- default root_markers so a bare top-level project (no .git/build/ yet) still
+  -- attaches. If cmake LSP root detection misbehaves, revert this first.
+  root_markers = { 'CMakeLists.txt', 'CMakePresets.json', 'CTestConfig.cmake', '.git', 'build', 'cmake' },
+})
+
 -- 2. Enable all your language servers at once
 vim.lsp.enable({
   'clangd',
@@ -423,6 +557,22 @@ vim.lsp.enable({
   'lua_ls',
   'qml_lsp'
 })
+
+-- Restart LSP client(s): current buffer only, or all clients with :LspRestart!
+-- Stops the client(s), then reloads the buffer so vim.lsp.enable's FileType
+-- autocmd re-attaches a fresh client.
+vim.api.nvim_create_user_command('LspRestart', function(cmd_opts)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = cmd_opts.bang and vim.lsp.get_clients() or vim.lsp.get_clients { bufnr = bufnr }
+
+  for _, client in ipairs(clients) do
+    client:stop()
+  end
+
+  vim.defer_fn(function()
+    vim.cmd.edit()
+  end, 500)
+end, { bang = true, desc = 'Restart LSP client(s): current buffer, or all with !' })
 
 -- Native LSP Keymaps mapping function
 vim.api.nvim_create_autocmd('LspAttach', {
