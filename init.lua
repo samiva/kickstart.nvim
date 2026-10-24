@@ -451,7 +451,20 @@ vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps'
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+
+-- --pcre2 enables lookaround (e.g. foo(?!bar)) in ripgrep; toggle with :TogglePcre2
+local pcre2_enabled = true
+local function live_grep(opts)
+  opts = vim.tbl_extend('force', { additional_args = pcre2_enabled and { '--pcre2' } or {} }, opts or {})
+  builtin.live_grep(opts)
+end
+local function toggle_pcre2()
+  pcre2_enabled = not pcre2_enabled
+  vim.notify('Live grep --pcre2: ' .. (pcre2_enabled and 'on' or 'off'))
+end
+vim.api.nvim_create_user_command('TogglePcre2', toggle_pcre2, { desc = 'Toggle --pcre2 for Telescope live grep' })
+
+vim.keymap.set('n', '<leader>sg', live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -460,7 +473,7 @@ vim.keymap.set('n', '<leader>/', function()
   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown { winblend = 10, previewer = false })
 end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>s/', function()
-  builtin.live_grep { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }
+  live_grep { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }
 end, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>sn', function()
   builtin.find_files { cwd = vim.fn.stdpath 'config' }
