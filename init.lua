@@ -160,6 +160,8 @@ vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
 vim.keymap.set('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous quickfix item' })
 vim.keymap.set('n', ']Q', '<cmd>clast<CR>', { desc = 'Last quickfix item' })
 vim.keymap.set('n', '[Q', '<cmd>cfirst<CR>', { desc = 'First quickfix item' })
+vim.keymap.set('n', '<leader>tq', '<cmd>Telescope quickfix<CR>', { desc = 'Quickfix list in telescop' })
+-- vim.keymap.set('n', '<leader>tq', '<cmd>Telescope quickfixhistory<CR>', { desc = 'Quickfix list in telescop' })
 
 -- Disable arrows
 vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
