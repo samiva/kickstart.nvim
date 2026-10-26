@@ -338,10 +338,12 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>sl', ':G stash list', { buffer = args.buf, desc = 'stash list' })
 
     -- Branch
+    vim.keymap.set('n', '<leader>b', ':G branch', { buffer = args.buf, desc = 'branch' })
     vim.keymap.set('n', '<leader>ch', ':G checkout', { buffer = args.buf, desc = 'checkout' })
     vim.keymap.set('n', '<leader>sb', ':G switch ', { buffer = args.buf, desc = 'switch' })
     vim.keymap.set('n', '<leader>sbd', ':G switch --detach ', { buffer = args.buf, desc = 'switch --detach' })
-    vim.keymap.set('n', '<leader>rb', ':G rebase -i', { buffer = args.buf, desc = 'Interactive rebase' })
+    vim.keymap.set('n', '<leader>rb', ':G rebase ', { buffer = args.buf, desc = 'Interactive rebase' })
+    vim.keymap.set('n', '<leader>rbi', ':G rebase -i', { buffer = args.buf, desc = 'Interactive rebase' })
     vim.keymap.set('n', '<leader>rbc', ':G rebase --continue', { buffer = args.buf, desc = 'Rebase continue' })
 
     -- Cherry-pick
